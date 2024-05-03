@@ -3,6 +3,7 @@ import Search from "./search";
 import Logo from "./logo";
 import UserMenu from "./userMenu";
 import Container from "../../utils/container";
+import RentButton from "./rentButton";
 
 function Header() {
 
@@ -15,7 +16,12 @@ function Header() {
                     <div className="flex flex-row items-center justify-between gap-3 md:gap-0">
                         <Logo />
                         <Search />
-                        <UserMenu />
+                        <div className="relative">
+                            <div className="flex flex-row items-center gap-3">
+                                <RentButton />
+                                <UserMenu />
+                            </div>
+                        </div>
                     </div>
                 </Container>
             </div>

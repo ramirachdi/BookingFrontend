@@ -1,8 +1,8 @@
 import React from "react";
 import HeartButton from "../utils/heartButton";
-import Button from "../utils/button";
+// import Button from "../utils/button";
 
-function ListingCard({ }) {
+function ListingCard() {
 
     return (<>
         <div
@@ -10,7 +10,6 @@ function ListingCard({ }) {
             <div className="flex flex-col w-full gap-2">
                 <div className="relative w-full overflow-hidden aspect-square rounded-xl">
                     <img
-                        fill
                         src="/assets/images/images.jpg"
                         alt="Listing"
                         className="object-cover w-full h-full transition group-hover:scale-110"
