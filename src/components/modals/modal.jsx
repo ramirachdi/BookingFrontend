@@ -73,7 +73,11 @@ function Modal({
                     className="bg-black bg-opacity-40 -z-10 inset-0 fixed"
                 ></div>
             )} */}
-            <div className="fixed inset-0 z-50 flex items-center justify-center overflow-x-hidden overflow-y-auto outline-none focus:outline-none bg-neutral-800/70">
+
+
+
+            <div className="fixed inset-0 z-50 flex items-center justify-center overflow-x-hidden   overflow-y-hidden outline-none focus:outline-none bg-neutral-800/70">
+                {/* <form onSubmit={handleSubmit(onSubmit)}> */}
                 <div className="relative w-full h-full mx-auto my-6 md:w-4/6 lg:w-3/6 xl:w-2/5 lg:h-auto md:h-auto ">
                     {/* CONTENT */}
                     <div
@@ -90,9 +94,9 @@ function Modal({
                                 <div className="text-lg font-semibold">{title}</div>
                             </div>
                             {/* BODY */}
-                            <div className="relative flex-auto p-6">{body}</div>
+                            <div className="relative flex-auto px-6 py-2">{body}</div>
                             {/* FOOTER */}
-                            <div className="flex flex-col gap-2 p-6">
+                            <div className="flex flex-col gap-2 px-6 pt-2 pb-6">
                                 <div className="flex flex-row items-center w-full gap-4">
                                     {secondaryAction && secondaryActionLabel && (
                                         <Button
@@ -114,6 +118,7 @@ function Modal({
                         </div>
                     </div>
                 </div>
+                {/* </form> */}
             </div>
 
         </>)

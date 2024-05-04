@@ -1,10 +1,9 @@
 import useLoginModal from "../../hooks/useLoginModal";
 import useRegisterModal from "../../hooks/useRegisterModal";
-// import axios from "axios";
-// import { signIn } from "next-auth/react";
+import { useCookies } from 'react-cookie';
 import { useCallback, useState } from "react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
-// import toast from "react-hot-toast";
+import toast from "react-hot-toast";
 import { AiFillGithub } from "react-icons/ai";
 import { FcGoogle } from "react-icons/fc";
 import Button from "../utils/button";
@@ -16,36 +15,74 @@ const RegisterModal = () => {
     const registerModal = useRegisterModal();
     const loginModal = useLoginModal();
     const [isLoading, setIsLoading] = useState(false);
+    const [_, setCookies] = useCookies(["access-token"]);
+
 
     const {
         register,
         handleSubmit,
+        getValues,
         formState: { errors },
     } = useForm({
         defaultValues: {
             name: "",
             email: "",
             password: "",
+            phoneNumber: "",
         },
     });
 
     const onSubmit = (data) => {
+        const { name, email, password, phoneNumber } = getValues();
+        console.log(name, email, password, phoneNumber);
         setIsLoading(true);
 
-        // axios
-        //   .post("/api/register", data)
-        //   .then(() => {
-        //     toast.success("Successfully registered!");
-        //     registerModal.onClose();
-        //     loginModal.onOpen();
-        //   })
-        //   .catch((error) => {
-        //     toast.error("Something went wrong. Try it later.");
-        //   })
-        //   .finally(() => {
-        //     setIsLoading(false);
-        //   });
+        fetch('http://localhost:3000/auth/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                email: email,
+                password: password,
+                name: name,
+                phoneNumber: phoneNumber,
+            })
+        })
+            .then(res => {
+                console.log(res);
+                // if (!res.ok) {
+                //     throw new Error('Validation failed.');
+                // }
+                if (!res.ok) {
+                    console.log('Error!');
+                    throw new Error('Could not authenticate you!');
+                }
+                return res.json();
+            })
+            .then(() => {
+
+
+                toast.success("Successfully registered!", {
+                    duration: 5000, iconTheme: {
+                        primary: '#BC7FCD',
+                    },
+                });
+                // localStorage.setItem('userId', resData.userId);
+                setIsLoading(false);
+                registerModal.onClose();
+                loginModal.onOpen();
+
+
+
+            })
+            .catch(err => {
+                alert("Error:" + err);
+            });
+
+
     };
+
 
     const toggle = useCallback(() => {
         registerModal.onClose();
@@ -55,36 +92,49 @@ const RegisterModal = () => {
     const bodyContent = (
         <div className="flex flex-col gap-4">
             <Heading title="Welcome to Airbnb" subTitle="Create an account" center />
-            <Input
-                label="Email"
-                id="email"
-                disabled={isLoading}
-                register={register}
-                errors={errors}
-                required
-            />
-            <Input
-                label="Name"
-                id="name"
-                disabled={isLoading}
-                register={register}
-                errors={errors}
-                required
-            />
-            <Input
-                type="password"
-                label="Password"
-                id="password"
-                disabled={isLoading}
-                register={register}
-                errors={errors}
-                required
-            />
+            <div className="flex flex-col md:flex-row  gap-4  ">
+                <Input
+                    label="Email"
+                    id="email"
+                    disabled={isLoading}
+                    register={register}
+                    errors={errors}
+                    required
+                />
+                <Input
+                    label="Name"
+                    id="name"
+                    disabled={isLoading}
+                    register={register}
+                    errors={errors}
+                    required
+                />
+            </div>
+            <div className="flex  flex-row gap-4 ">
+                <Input
+                    type="password"
+                    label="Password"
+                    id="password"
+                    disabled={isLoading}
+                    register={register}
+                    errors={errors}
+                    required
+                />
+                <Input
+                    label="Phone number"
+                    id="phoneNumber"
+                    disabled={isLoading}
+                    register={register}
+                    errors={errors}
+                    required
+                />
+            </div>
+
         </div>
     );
 
     const footerContent = (
-        <div className="flex flex-col gap-4 mt-3">
+        <div className="flex flex-col gap-3 md:mt-3">
             <hr />
             <Button
                 outline
@@ -98,7 +148,7 @@ const RegisterModal = () => {
                 icon={AiFillGithub}
             // onClick={() => signIn("github")}
             />
-            <div className="mt-4 font-light text-center text-neutral-500">
+            <div className="mt-2 font-light text-center text-neutral-500">
                 <div className="flex items-center justify-center gap-2">
                     <div>Already have an account?</div>
                     <div
