@@ -5,7 +5,6 @@ import Button from "../utils/button";
 
 function Modal({
     isOpen,
-    action,
     onClose,
     onSubmit,
     title,
@@ -68,14 +67,14 @@ function Modal({
     }
     return (
         <>
-            {isOpen && (
+            {/* {showModal && (
                 <div
-                    onClick={action}
-                    className="w-full h-screen bg-black bg-opacity-40 z-40 left-0 top-0 fixed"
+                    onClick={ onClose}
+                    className="bg-black bg-opacity-40 -z-10 inset-0 fixed"
                 ></div>
-            )}
+            )} */}
             <div className="fixed inset-0 z-50 flex items-center justify-center overflow-x-hidden overflow-y-auto outline-none focus:outline-none bg-neutral-800/70">
-                <div className="relative w-full h-full mx-auto my-6 md:w-4/6 lg:w-3/6 xl:w-2/5 lg:h-auto md:h-auto">
+                <div className="relative w-full h-full mx-auto my-6 md:w-4/6 lg:w-3/6 xl:w-2/5 lg:h-auto md:h-auto ">
                     {/* CONTENT */}
                     <div
                         className={`translate duration-300 h-full ${showModal ? "translate-y-0" : "translate-y-full"

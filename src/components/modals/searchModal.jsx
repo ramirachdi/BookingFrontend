@@ -19,7 +19,7 @@ const STEPS = {
   INFO: 2,
 }
 
-const loadMap = lazy(() => import("../utils/map"));
+const loadMap = lazy(() => import("../common/map"));
 const Map = memo(loadMap);
 
 

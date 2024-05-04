@@ -1,8 +1,7 @@
 import React from "react";
 
-// import useLoginModal from "@/app/hooks/useLoginModal";
-// import useRegisterModal from "@/app/hooks/useRegisterModal";
-import useRentModal from "../../../hooks/useRentModal";
+import useLoginModal from "../../../hooks/useLoginModal";
+import useRegisterModal from "../../../hooks/useRegisterModal";
 // import { SafeUser } from "@/app/types";
 // import { signOut } from "next-auth/react";
 
@@ -18,8 +17,7 @@ import MenuItem from "./menuItem";
 
 // const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
 //   const router = useRouter();
-//   const registerModal = useRegisterModal();
-//   const loginModal = useLoginModal();
+
 
 
 
@@ -31,7 +29,8 @@ import MenuItem from "./menuItem";
 
 function UserMenu() {
 
-
+  const registerModal = useRegisterModal();
+  const loginModal = useLoginModal();
     const [isOpen, setIsOpen] = useState(false);
 
     const toggleOpen = useCallback(() => {
@@ -56,7 +55,7 @@ function UserMenu() {
 
                     <div className="absolute rounded-xl filter drop-shadow-xl w-[40vw] md:w-3/4 bg-white overflow-hidden right-0 top-12 text-sm">
                         <div className="flex flex-col cursor-pointer inset-0 z-50">
-                            {true ? (
+                            {false ? (
                                 <>
                                     <MenuItem
                                         //   onClick={() => router.push("/trips")}
@@ -86,10 +85,10 @@ function UserMenu() {
                             ) : (
                                 <>
                                     <MenuItem
-                                        // onClick={loginModal.onOpen}
+                                        onClick={loginModal.onOpen}
                                         label="Login" />
                                     <MenuItem
-                                        // onClick={registerModal.onOpen}
+                                        onClick={registerModal.onOpen}
                                         label="Sign up" />
                                 </>
                             )}
@@ -101,7 +100,7 @@ function UserMenu() {
             )}
 
             {isOpen && (<div
-                className="fixed  inset-0 -z-10"
+                className="fixed  inset-0 -z-10 "
                 onClick={toggleOpen}
             ></div>)}
 

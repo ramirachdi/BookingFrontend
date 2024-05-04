@@ -9,7 +9,7 @@ import Heading from "../utils/heading";
 import Counter from "../common/counter";
 import CountrySelect from "../common/countrySelect";
 import ImageUpload from "./imageInput";
-import Input from "./input";
+import Input from "../common/input";
 import Modal from "../modals/modal";
 // import { redirect, useSearchParams } from "react-router-dom";
 
@@ -22,7 +22,7 @@ const STEPS = {
   PRICE: 5,
 }
 
-const loadMap = lazy(() => import("../utils/map"));
+const loadMap = lazy(() => import("../common/map"));
 const Map = memo(loadMap);
 
 const RentModal = () => {
