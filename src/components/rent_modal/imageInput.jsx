@@ -1,26 +1,39 @@
 import { React, useEffect, useRef } from "react";
 import { Image } from "cloudinary-react";
+import { fill } from "@cloudinary/url-gen/actions/resize";
+import { autoGravity } from "@cloudinary/url-gen/qualifiers/gravity";
 import { TbPhotoPlus } from "react-icons/tb";
+import { Cloudinary } from "@cloudinary/url-gen/index";
 
 
-function ImageUpload({ value }) {
-   
+function ImageUpload({ value, onChange }) {
+
+
 
     const cloudinaryRef = useRef();
     const widgetRef = useRef();
     useEffect(() => {
+        const cld = new Cloudinary({
+            cloud: {
+                cloudName: 'dqhtfmhmc'
+            }
+            });
         cloudinaryRef.current = window.cloudinary;
         widgetRef.current = cloudinaryRef.current.createUploadWidget({
             cloudName: 'dqhtfmhmc',
             uploadPreset: 'uw_test'
         }, (error, result) => {
             if (!error && result && result.event === "success") {
-                console.log('Done! Here is the image info: ', result.info);
+
+                const myImage = cld.image(result.info.public_id);
+                myImage.resize(fill().width(600).height(290).gravity(autoGravity()));
+                const myURL = myImage.toURL();
+                onChange(myURL);
             }
         }
         );
 
-    }, [])
+    }, [onChange])
 
 
     return (
@@ -33,8 +46,6 @@ function ImageUpload({ value }) {
                 <div className="absolute inset-0 w-full h-full">
                     <Image
                         alt="upload"
-                        fill
-                        style={{ objectFit: "cover" }}
                         src={value}
                     />
                 </div>

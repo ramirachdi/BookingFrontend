@@ -1,8 +1,7 @@
 import useLoginModal from "../../hooks/useLoginModal";
 import useRegisterModal from "../../hooks/useRegisterModal";
-import { useCookies } from 'react-cookie';
 import { useCallback, useState } from "react";
-import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
+import {useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { AiFillGithub } from "react-icons/ai";
 import { FcGoogle } from "react-icons/fc";
@@ -15,7 +14,7 @@ const RegisterModal = () => {
     const registerModal = useRegisterModal();
     const loginModal = useLoginModal();
     const [isLoading, setIsLoading] = useState(false);
-    const [_, setCookies] = useCookies(["access-token"]);
+    
 
 
     const {
@@ -32,9 +31,9 @@ const RegisterModal = () => {
         },
     });
 
-    const onSubmit = (data) => {
+    const onSubmit = () => {
         const { name, email, password, phoneNumber } = getValues();
-        console.log(name, email, password, phoneNumber);
+     
         setIsLoading(true);
 
         fetch('http://localhost:3000/auth/', {
@@ -51,9 +50,7 @@ const RegisterModal = () => {
         })
             .then(res => {
                 console.log(res);
-                // if (!res.ok) {
-                //     throw new Error('Validation failed.');
-                // }
+             
                 if (!res.ok) {
                     console.log('Error!');
                     throw new Error('Could not authenticate you!');

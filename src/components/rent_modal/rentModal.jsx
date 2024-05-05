@@ -2,8 +2,8 @@ import { categories } from "../../constants/categories";
 import useRentModal from "../../hooks/useRentModal";
 // import axios from "axios";
 import { Suspense, lazy, memo, useMemo, useState } from "react";
-import {useForm } from "react-hook-form";
-// import toast from "react-hot-toast";
+import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
 import CategoryInput from "./categoryInput";
 import Heading from "../utils/heading";
 import Counter from "../common/counter";
@@ -11,6 +11,8 @@ import CountrySelect from "../common/countrySelect";
 import ImageUpload from "./imageInput";
 import Input from "../common/input";
 import Modal from "../modals/modal";
+import { useCookies } from "react-cookie";
+import { createListing } from "../../services/listing";
 // import { redirect, useSearchParams } from "react-router-dom";
 
 const STEPS = {
@@ -28,6 +30,7 @@ const Map = memo(loadMap);
 const RentModal = () => {
 
   const rentModal = useRentModal();
+  const [cookies, setCookies] = useCookies(["access-token"]);
 
   const [step, setStep] = useState(STEPS.CATEGORY);
   const [isLoading, setIsLoading] = useState(false);
@@ -39,6 +42,7 @@ const RentModal = () => {
     watch,
     formState: { errors },
     reset,
+    getValues,
   } = useForm({
     defaultValues: {
       category: "",
@@ -77,10 +81,21 @@ const RentModal = () => {
     setStep((value) => value + 1);
   };
 
-  const onSubmit = (data) => {
+  const onSubmit = () => {
     if (step !== STEPS.PRICE) {
       return onNext();
     }
+    const data = getValues();
+    console.log(data);
+    setIsLoading(true);
+    createListing(data, cookies);
+    reset();
+    toast.success("Listing Created!");
+    setStep(STEPS.CATEGORY);
+    window.location.reload();
+    rentModal.onClose();
+    setIsLoading(false);
+
 
   };
 
@@ -181,6 +196,7 @@ const RentModal = () => {
         <ImageUpload
           value={imageSrc}
           onChange={(value) => setCustomValue("imageSrc", value)}
+
         />
       </div>
     );
