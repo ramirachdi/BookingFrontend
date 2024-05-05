@@ -7,14 +7,14 @@ import LoginModal from "../../login";
 import RegisterModal from "../../sign_up";
 import { Toaster } from "react-hot-toast";
 
-function Layout({ children }) {
+function Layout({ action, children }) {
 
 
     return (<>
-        
+
         <Header />
         <Toaster />
-        <SearchModal />
+        <SearchModal action={(value)=>action(value)} />
         <RentModal />
         <LoginModal />
         <RegisterModal />

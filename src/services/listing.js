@@ -1,15 +1,24 @@
-export const getListings = async (setListings) => {
-    fetch(`http://localhost:3000/listings`, {
+import axios from "axios";
+
+export const getListings = async (filters, setListings) => {
+    axios.get(`http://localhost:3000/listings`, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
-            // 'Cookie': `access-token=${cookies["access-token"]}`,
         },
-        // credentials: "include",
-        // body: JSON.stringify({
-        //     productId: productId
-        // })
-    }).then(response => response.json())
+        params: filters
+        //  {
+        //     startDate:data?.startDate,
+        //     endDate: data?.endDate,
+        //     country: data ?.country,
+        //     capacity: data?.capacity,
+        //     price: data?.price,
+        //     rooms: data?.rooms,
+        //     bathrooms: data?.bathrooms,
+        //     type: data?.type,
+        //     }
+
+    }).then(response => response.data)
         .then(data => setListings(data))
         .catch(err => console.log(err))
 }

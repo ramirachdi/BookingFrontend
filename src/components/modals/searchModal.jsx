@@ -9,6 +9,7 @@ import Heading from "../utils/heading";
 import CalendarComp from "../common/calendar";
 import Counter from "../common/counter";
 import CountrySelect from "../common/countrySelect";
+import { getListings } from "../../services/listing";
 
 
 
@@ -24,10 +25,11 @@ const Map = memo(loadMap);
 
 
 
-const SearchModal = () => {
+const SearchModal = ({ action }) => {
 
-  const params = useSearchParams();
+
   const searchModal = useSearchModal();
+
 
   const [location, setLocation] = useState();
   const [step, setStep] = useState(STEPS.LOCATION);
@@ -52,43 +54,22 @@ const SearchModal = () => {
   const onSubmit = useCallback(async () => {
     if (step !== STEPS.INFO) {
       return onNext();
-    }
-
-    let currentQuery = {};
-
-    if (params) {
-      currentQuery = qs.parse(params.toString());
-    }
-
-    const updatedQuery = {
-      ...currentQuery,
-      locationValue: location?.value,
-      guestCount,
-      bathroomCount,
-      roomCount,
     };
 
-    if (dateRange.startDate) {
-      updatedQuery.startDate = formatISO(dateRange.startDate);
-    }
+    const filters = {
+      country: location?.value,
+      startDate: formatISO(dateRange.startDate),
+      endDate: formatISO(dateRange.endDate),
+      capacity: guestCount,
+      bathrooms: bathroomCount,
+      rooms: roomCount,
+    };
+    action(filters);
 
-    if (dateRange.endDate) {
-      updatedQuery.endDate = formatISO(dateRange.endDate);
-    }
-
-    const url = qs.stringifyUrl(
-      {
-        url: "/",
-        query: updatedQuery,
-      },
-      { skipNull: true },
-    );
 
     setStep(STEPS.LOCATION);
     searchModal.onClose();
 
-
-    redirect(url);
   }, [
     bathroomCount,
     dateRange,
@@ -96,7 +77,6 @@ const SearchModal = () => {
     location,
     onNext,
     searchModal,
-    params,
     roomCount,
     step,
   ]);
@@ -129,7 +109,6 @@ const SearchModal = () => {
       />
       <hr />
       <Suspense fallback={<div>Loading...</div>} >
-        {/* center={location?.latlng} */}
         <Map center={location?.latlng} />
       </Suspense>
     </div>
