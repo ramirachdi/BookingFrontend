@@ -64,7 +64,7 @@ const LoginModal = () => {
                     },
                 });
                 setCookies("access-token", resData.token);
-                // localStorage.setItem('userId', resData.userId);
+                localStorage.setItem('userId', resData.userId);
                 setIsLoading(false);
                 window.location.reload();
                 loginModal.onClose();

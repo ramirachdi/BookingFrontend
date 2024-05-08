@@ -1,7 +1,7 @@
 import useLoginModal from "../../hooks/useLoginModal";
 import useRegisterModal from "../../hooks/useRegisterModal";
 import { useCallback, useState } from "react";
-import {useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { AiFillGithub } from "react-icons/ai";
 import { FcGoogle } from "react-icons/fc";
@@ -14,7 +14,7 @@ const RegisterModal = () => {
     const registerModal = useRegisterModal();
     const loginModal = useLoginModal();
     const [isLoading, setIsLoading] = useState(false);
-    
+
 
 
     const {
@@ -33,7 +33,7 @@ const RegisterModal = () => {
 
     const onSubmit = () => {
         const { name, email, password, phoneNumber } = getValues();
-     
+
         setIsLoading(true);
 
         fetch('http://localhost:3000/auth/', {
@@ -50,7 +50,7 @@ const RegisterModal = () => {
         })
             .then(res => {
                 console.log(res);
-             
+
                 if (!res.ok) {
                     console.log('Error!');
                     throw new Error('Could not authenticate you!');
@@ -99,8 +99,9 @@ const RegisterModal = () => {
                     required
                 />
                 <Input
-                    label="Name"
-                    id="name"
+                    type="password"
+                    label="Password"
+                    id="password"
                     disabled={isLoading}
                     register={register}
                     errors={errors}
@@ -109,9 +110,8 @@ const RegisterModal = () => {
             </div>
             <div className="flex  flex-row gap-4 ">
                 <Input
-                    type="password"
-                    label="Password"
-                    id="password"
+                    label="Name"
+                    id="name"
                     disabled={isLoading}
                     register={register}
                     errors={errors}

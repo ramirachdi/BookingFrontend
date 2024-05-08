@@ -1,13 +1,13 @@
 import React from "react";
 
 
-function Avatar() {
+function Avatar({src,width,height}) {
     return (<>
         <img
             className="rounded-full"
-            width={30}
-            height={30}
-            src="assets/images/user.png"
+            width={width}
+            height={height}
+            src={src}
             alt="avatar"
         />
 

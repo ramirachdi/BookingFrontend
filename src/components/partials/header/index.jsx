@@ -3,7 +3,7 @@ import Search from "./search";
 import Logo from "./logo";
 import UserMenu from "./userMenu";
 import Container from "../../utils/container";
-import RentButton from "./rentButton";
+
 
 function Header() {
 
@@ -14,14 +14,9 @@ function Header() {
             <div className="py-4 border-b-[1px]">
                 <Container>
                     <div className="flex flex-row items-center justify-between gap-3 md:gap-0">
-                        <Logo />
+                        <Logo h={ 100} w={ 100} />
                         <Search />
-                        <div className="relative">
-                            <div className="flex flex-row items-center gap-3">
-                                <RentButton />
-                                <UserMenu />
-                            </div>
-                        </div>
+                        <UserMenu />
                     </div>
                 </Container>
             </div>

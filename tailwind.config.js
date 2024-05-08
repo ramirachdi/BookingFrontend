@@ -12,13 +12,12 @@ module.exports = {
     //   xl: '1440px',
     // },
 
-    fontFamily: {
-      sans: ['Graphik', 'sans-serif'],
-      serif: ['Merriweather', 'serif'],
-    },
+
     extend: {
       colors: {
-        violet: "#BC7FCD",
+        primary: "#0096c7",
+        secondary: "#f4f0f5",
+        violet: "#5e60ce",
         qgreen: "#AFC8AD",
         beige: "#EEE7DA",
         qgray: "#F6F5F2"

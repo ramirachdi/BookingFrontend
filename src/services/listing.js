@@ -7,16 +7,6 @@ export const getListings = async (filters, setListings) => {
             'Content-Type': 'application/json',
         },
         params: filters
-        //  {
-        //     startDate:data?.startDate,
-        //     endDate: data?.endDate,
-        //     country: data ?.country,
-        //     capacity: data?.capacity,
-        //     price: data?.price,
-        //     rooms: data?.rooms,
-        //     bathrooms: data?.bathrooms,
-        //     type: data?.type,
-        //     }
 
     }).then(response => response.data)
         .then(data => setListings(data))
