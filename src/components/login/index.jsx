@@ -10,12 +10,14 @@ import Button from "../utils/button";
 import Heading from "../utils/heading";
 import Input from "../common/input";
 import Modal from "../modals/modal";
+import { useNavigate } from "react-router-dom";
 
 const LoginModal = () => {
     const loginModal = useLoginModal();
     const registerModal = useRegisterModal();
     const [isLoading, setIsLoading] = useState(false);
     const [_, setCookies] = useCookies(["access-token"]);
+    const navigate = useNavigate();
 
     const {
         register,
@@ -58,15 +60,16 @@ const LoginModal = () => {
             })
             .then(resData => {
 
-                toast.success("Logged in", {
+
+                setCookies("access-token", resData.token);
+                localStorage.setItem('userId', resData.userId);
+                setIsLoading(false);
+                setInterval(() => navigate(0));
+                toast.success("Logging in", {
                     duration: 5000, iconTheme: {
                         primary: '#BC7FCD',
                     },
                 });
-                setCookies("access-token", resData.token);
-                localStorage.setItem('userId', resData.userId);
-                setIsLoading(false);
-                window.location.reload();
                 loginModal.onClose();
 
 

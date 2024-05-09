@@ -5,16 +5,16 @@ import SearchModal from "../../modals/searchModal";
 import RentModal from "../../rent_modal/rentModal";
 import LoginModal from "../../login";
 import RegisterModal from "../../sign_up";
-import { Toaster } from "react-hot-toast";
 
-function Layout({ action, children }) {
+
+function Layout({ action, children, searchBar }) {
 
 
     return (<>
 
-        <Header />
-        <Toaster />
-        <SearchModal action={(value)=>action(value)} />
+        <Header searchBar={searchBar} />
+       
+        <SearchModal action={(value) => action(value)} />
         <RentModal />
         <LoginModal />
         <RegisterModal />

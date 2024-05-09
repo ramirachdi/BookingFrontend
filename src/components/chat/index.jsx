@@ -15,6 +15,7 @@ import LogoutLogo from "../icons/logout";
 import TripsLogo from "../icons/trips";
 import { useNavigate } from "react-router-dom";
 import FavouritesLogo from "../icons/favourites";
+import toast from "react-hot-toast";
 
 
 function Chat() {
@@ -29,9 +30,18 @@ function Chat() {
 
 
     const logout = () => {
+
+
         removeCookie('access-token');
         localStorage.removeItem('userId');
-        navigate('/home');
+        setInterval(() => navigate('/home'));
+        toast.success("Logged out", {
+            duration: 2000, iconTheme: {
+                primary: '#5e60ce',
+            },
+        });
+
+
     }
 
     useEffect(() => {
@@ -240,7 +250,7 @@ function Chat() {
                     </div>
 
                     <div className="flex items-center py-4 border-b border-b-gray-300"
-                        onClick={() => navigate('/')}
+                        onClick={() => navigate('/favorites')}
                     >
                         <div className="cursor-pointer flex items-center">
                             <div className="flex ml-4">
@@ -261,7 +271,7 @@ function Chat() {
                         </div>
                     </div>
                     <div className="flex items-center py-4 border-b border-b-gray-300"
-                        onClick={() => logout()}
+                        onClick={logout}
                     >
                         <div className="cursor-pointer flex items-center">
                             <div className="flex ml-4">

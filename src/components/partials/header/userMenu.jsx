@@ -7,13 +7,14 @@ import Avatar from "../../utils/avatar";
 import MenuItem from "./menuItem";
 import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
+import { getUser } from "../../../services/user";
 
 
 
 function UserMenu() {
 
     const navigate = useNavigate();
-
+    const [user, setUser] = useState({});
     const [cookie, setCookie, removeCookie] = useCookies(['access-token']);
     const registerModal = useRegisterModal();
     const loginModal = useLoginModal();
@@ -24,6 +25,9 @@ function UserMenu() {
     const toggleOpen = useCallback(() => {
         setIsOpen((value) => !value);
     }, []);
+    useEffect(() => {
+        getUser(cookie, setUser);
+    }, [])
 
     useEffect(() => {
         if (cookie['access-token']) {
@@ -41,9 +45,9 @@ function UserMenu() {
 
     const logout = () => {
         removeCookie('access-token');
-        window.location.reload();
+        navigate(0);
     }
-    
+
     return (
         <>
 
@@ -61,7 +65,7 @@ function UserMenu() {
                         className="p-4 md:py-1 md:px-2 border-[1px] border-neutral-200 flex flex-row items-center gap-3 rounded-full cursor-pointer hover:shadow-md transition">
                         <AiOutlineMenu />
                         <div className="hidden md:block">
-                            <Avatar width={30} height={30} />
+                            <Avatar src={user.avatar_url} width={30} height={30} />
                         </div>
                     </div>
 
@@ -78,11 +82,11 @@ function UserMenu() {
                                             label="My messages"
                                         />
                                         <MenuItem
-                                           // onClick={() => navigate("/trips")}
+                                            // onClick={() => navigate("/trips")}
                                             label="My trips"
                                         />
                                         <MenuItem
-                                            //   onClick={() => router.push("/favorites")}
+                                            onClick={() => navigate("/favorites")}
                                             label="My favorites"
                                         />
                                         <MenuItem
@@ -90,7 +94,7 @@ function UserMenu() {
                                             label="My reservations"
                                         />
                                         <MenuItem
-                                            //   onClick={() => router.push("/properties")}
+                                            onClick={() => navigate("/properties")}
                                             label="My properties"
                                         />
                                         <MenuItem

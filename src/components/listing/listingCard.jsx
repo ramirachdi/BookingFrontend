@@ -1,14 +1,36 @@
 import React from "react";
 import HeartButton from "../utils/heartButton";
 import { useCountries } from "../../hooks/useCountries";
-// import Button from "../utils/button";
+import { useCallback, useEffect } from "react";
+import Button from "../utils/button";
 
 function ListingCard({
-    data
+    data,
+    reservation,
+    onAction,
+    actionLabel,
+    actionId = "",
+    disabled,
+    favorites
 }) {
 
     const { getByValue } = useCountries();
     const location = getByValue(data.country);
+
+    const handleCancel = useCallback(
+        (e) => {
+            e.stopPropagation();
+
+            if (disabled) {
+                return;
+            }
+
+            onAction?.(actionId);
+        },
+        [onAction, actionId, disabled],
+    );
+
+
     return (<>
         <div
             className="col-span-1 cursor-pointer group">
@@ -21,7 +43,7 @@ function ListingCard({
                     />
 
                     <div className="absolute top-3 right-3">
-                        <HeartButton />
+                        <HeartButton listing={data} userFav={favorites} />
                     </div>
                 </div>
                 <div className="text-lg font-semibold">
@@ -34,11 +56,19 @@ function ListingCard({
                 </div>
                 <div className="flex flex-row items-center gap-2">
                     <div className="font-semibold">
-                         {data.price}$
+                        {data.price}$
                     </div>
                     {true && <div className="font-normal"> per night</div>}
                 </div>
 
+                {onAction && actionLabel && (
+                    <Button
+                        disabled={disabled}
+                        small
+                        label={actionLabel}
+                        onClick={handleCancel}
+                    />
+                )}
             </div>
         </div>
     </>)

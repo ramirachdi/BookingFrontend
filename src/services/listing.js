@@ -36,3 +36,33 @@ export const createListing = async (data, cookies) => {
         .then(data => console.log(data))
         .catch(err => console.log(err))
 }
+
+export const getUserListings = async (setListings, cookies) => {
+    axios.get(`http://localhost:3000/listings/user`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${cookies["access-token"]}`,
+        },
+        withCredentials: true,
+
+    }).then(response => response.data)
+        .then(data => setListings(data))
+        .catch(err => console.log(err))
+
+}
+
+export const deleteListing = async (id, cookies) => {
+    axios.delete(`http://localhost:3000/listings/${id}`, {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${cookies["access-token"]}`,
+
+        },
+        withCredentials: true,
+    }).then(response => response.data)
+        .then(data => console.log(data))
+        .catch(err => console.log(err))
+}
+
