@@ -4,7 +4,7 @@ import Chat from "./pages/chat";
 import PropertiesPage from "./pages/properties";
 import FavoritesPage from "./pages/favorites";
 import ReservationsPage from "./pages/reservations";
-
+import InfoPage from "./pages/info";
 
 function App() {
   return (
@@ -14,7 +14,8 @@ function App() {
         <Route path="/chat" element={<Chat />} />
         <Route path="/properties" element={<PropertiesPage />} />
         <Route path="/favorites" element={<FavoritesPage />} />
-        <Route path="/reservations" element={<ReservationsPage/>} />
+        <Route path="/listing" element={<InfoPage />} />
+        <Route path="/reservations" element={<ReservationsPage />} />
       </Routes>
     </BrowserRouter>
   );
