@@ -106,9 +106,9 @@ function Chat() {
                         <div className="mt-8 mx-14 text-gray-200"> You have no conversations </div> :
 
 
-                        <div className="mx-14 mt-8">
+                        <div className="mx-12 mt-8">
                             <div className="text-violet text-lg">Messages</div>
-                            <div>
+                            <div className="overflow-y-auto">
                                 {conversations.map((conversation) => {
 
                                     return (

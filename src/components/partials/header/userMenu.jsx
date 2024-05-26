@@ -15,7 +15,7 @@ function UserMenu() {
 
     const navigate = useNavigate();
     const [user, setUser] = useState({});
-    const [cookie, setCookie, removeCookie] = useCookies(['access-token']);
+    const [cookie, , removeCookie] = useCookies(['access-token']);
     const registerModal = useRegisterModal();
     const loginModal = useLoginModal();
     const rentModal = useRentModal();
@@ -27,7 +27,7 @@ function UserMenu() {
     }, []);
     useEffect(() => {
         getUser(cookie, setUser);
-    }, [])
+    }, [cookie])
 
     useEffect(() => {
         if (cookie['access-token']) {
@@ -82,10 +82,6 @@ function UserMenu() {
                                             label="My messages"
                                         />
                                         <MenuItem
-                                            // onClick={() => navigate("/trips")}
-                                            label="My trips"
-                                        />
-                                        <MenuItem
                                             onClick={() => navigate("/favorites")}
                                             label="My favorites"
                                         />
@@ -97,10 +93,10 @@ function UserMenu() {
                                             onClick={() => navigate("/properties")}
                                             label="My properties"
                                         />
-                                        <MenuItem
+                                        {/* <MenuItem
                                             //   onClick={() => rentModal.onOpen}
                                             label="Airbnb my home"
-                                        />
+                                        /> */}
                                         <hr />
                                         <MenuItem
                                             onClick={() => logout()}

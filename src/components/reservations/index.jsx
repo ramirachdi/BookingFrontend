@@ -9,11 +9,9 @@ import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 
 function ReservationPage() {
-  const [cookies, setCookies] = useCookies(['access-token']);
+  const [cookies] = useCookies(['access-token']);
   const [reservations, setReservations] = useState([]);
-  const [newReservation, setNewReservation] = useState({ name: '', date: '', time: '' });
-  const [error, setError] = useState(null);
-
+  // const [newReservation, setNewReservation] = useState({ name: '', date: '', time: '' });
 
   const navigate = useNavigate();
   const [deletingId, setDeletingId] = useState("");
@@ -34,26 +32,13 @@ function ReservationPage() {
     [navigate],
     );
 
-
-
   useEffect(() => {
     getReservations(setReservations,cookies);
   }, []);
 
  
 
- 
-
-//  const handleDeleteReservation = async (id) => {
-//   try {
-//      await deleteReservation(cookies, id);
-//      fetchReservations();
-//    } catch (error) {
-//      setError(error.message);
-//    }
-//  };
-
-  if (reservations.length == 0) {
+  if (reservations.length === 0) {
     return (
       <Layout searchBar={false}>
         <div className="h-[60vh] flex flex-col gap-2 justify-center items-center">
