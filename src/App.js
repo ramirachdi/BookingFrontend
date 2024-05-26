@@ -3,6 +3,7 @@ import Home from "./pages/home";
 import Chat from "./pages/chat";
 import PropertiesPage from "./pages/properties";
 import FavoritesPage from "./pages/favorites";
+import InfoPage from "./pages/info";
 
 
 function App() {
@@ -13,6 +14,7 @@ function App() {
         <Route path="/chat" element={<Chat />} />
         <Route path="/properties" element={<PropertiesPage />} />
         <Route path="/favorites" element={<FavoritesPage />} />
+        <Route path="/listing" element={<InfoPage />} />
       </Routes>
     </BrowserRouter>
   );

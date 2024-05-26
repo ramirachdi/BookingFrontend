@@ -4,6 +4,7 @@ import { React, useEffect, useState } from "react";
 import Layout from "../components/partials/layout/index";
 import Home from "../components/home";
 import { Toaster } from "react-hot-toast";
+import { Link } from "react-router-dom";
 
 function HomePage() {
     const [filters, setFilters] = useState();
