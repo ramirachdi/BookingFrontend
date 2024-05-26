@@ -5,6 +5,7 @@ import PropertiesPage from "./pages/properties";
 import FavoritesPage from "./pages/favorites";
 import ReservationsPage from "./pages/reservations";
 import InfoPage from "./pages/info";
+import Profile from "./pages/profile";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Route path="/favorites" element={<FavoritesPage />} />
         <Route path="/listing/:id" element={<InfoPage />} />
         <Route path="/reservations" element={<ReservationsPage />} />
+        <Route path="/profile" element={<Profile />} />
       </Routes>
     </BrowserRouter>
   );
