@@ -2,7 +2,7 @@ import React from "react";
 import { MapContainer, TileLayer, Marker } from "react-leaflet";
 
 
-function Map({ center }) {
+function Map({ center,height }) {
     
     return (<>
 
@@ -11,7 +11,7 @@ function Map({ center }) {
             center={(center) || [51, -0.09]}
             zoom={center ? 4 : 2}
             scrollWheelZoom={false}
-            className="h-[35vh] rounded-lg">
+            className={`h-${height} rounded-lg`}>
             <TileLayer
                 attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"

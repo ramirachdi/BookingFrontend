@@ -1,8 +1,9 @@
 import React from "react";
 import HeartButton from "../utils/heartButton";
 import { useCountries } from "../../hooks/useCountries";
-import { useCallback, useEffect } from "react";
+import { useCallback } from "react";
 import Button from "../utils/button";
+import { useNavigate } from "react-router-dom";
 
 function ListingCard({
     data,
@@ -16,6 +17,7 @@ function ListingCard({
 
     const { getByValue } = useCountries();
     const location = getByValue(data.country);
+    const navigate = useNavigate();
 
     const handleCancel = useCallback(
         (e) => {
@@ -33,6 +35,7 @@ function ListingCard({
 
     return (<>
         <div
+            onClick={() => navigate(`/listing/${data.id}`)}
             className="col-span-1 cursor-pointer group">
             <div className="flex flex-col w-full">
                 <div className="relative w-full overflow-hidden aspect-square rounded-xl mb-1.5">

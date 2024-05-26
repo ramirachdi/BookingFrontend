@@ -1,6 +1,5 @@
 import { categories } from "../../constants/categories";
 import useRentModal from "../../hooks/useRentModal";
-// import axios from "axios";
 import { Suspense, lazy, memo, useMemo, useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
@@ -13,7 +12,7 @@ import Input from "../common/input";
 import Modal from "../modals/modal";
 import { useCookies } from "react-cookie";
 import { createListing } from "../../services/listing";
-// import { redirect, useSearchParams } from "react-router-dom";
+
 
 const STEPS = {
   CATEGORY: 0,
@@ -149,7 +148,7 @@ const RentModal = () => {
         />
         <Suspense fallback={<div>Loading...</div>} >
           {/* center={location?.latlng} */}
-          <Map center={location?.latlng} />
+          <Map height={"[35vh]"} center={location?.latlng} />
         </Suspense>
       </div>
     );

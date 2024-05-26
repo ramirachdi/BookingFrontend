@@ -14,7 +14,7 @@ function App() {
         <Route path="/chat" element={<Chat />} />
         <Route path="/properties" element={<PropertiesPage />} />
         <Route path="/favorites" element={<FavoritesPage />} />
-        <Route path="/listing" element={<InfoPage />} />
+        <Route path="/listing/:id" element={<InfoPage />} />
         <Route path="/reservations" element={<ReservationsPage />} />
       </Routes>
     </BrowserRouter>

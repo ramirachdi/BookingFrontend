@@ -109,7 +109,7 @@ const SearchModal = ({ action }) => {
       />
       <hr />
       <Suspense fallback={<div>Loading...</div>} >
-        <Map center={location?.latlng} />
+        <Map height={"[35vh]"} center={location?.latlng} />
       </Suspense>
     </div>
   );

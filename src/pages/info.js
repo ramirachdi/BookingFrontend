@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import axios from "axios";
 import ListingInfo from "../components/listing/listingInfo";
 import useCountries from "../hooks/useCountries";
 import Map from "../components/common/map";
 import Calendar from "../components/common/calendar";
 import ListingHead from "../components/listing/listingHead";
 import Layout from "../components/partials/layout/index";
-import Home from "../components/home";
 import Container from "../components/utils/container";
+import { getListing } from "../services/listing";
 
 const InfoPage = () => {
   const { id } = useParams();
@@ -20,20 +19,9 @@ const InfoPage = () => {
     key: "selection",
   });
 
-  /* useEffect(() => {
-    axios.get(`/api/listings/${id}`).then(response => {
-      setListing(response.data);
-      setBookings(response.data.bookings);
-    });
-  }, [id]); 
-
-  if (!listing) {
-    return <div>Loading...</div>;
-  } */
-
   const { getByValue } = useCountries();
 
-  const coordinates = getByValue("FR")?.latlng;
+  // const coordinates = getByValue(listing.country)?.latlng;
 
   const disabledDates = bookings.reduce((acc, booking) => {
     const currentDate = new Date(booking.startDate);
@@ -49,57 +37,57 @@ const InfoPage = () => {
     setSelectedRange(ranges);
   };
 
+  useEffect(() => {
+    getListing(id, setListing);
+  }, [id]);
+
+  if (!listing) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <Layout searchBar={false}>
-      <Container> 
-      <div className="max-w-7xl mx-auto p-6 py-24 ">
-        <div className="mb-6">
-          {/*<img src={listing.imageUrl} alt={listing.title} className="w-full h-auto rounded-lg" />*/}
-          <ListingHead
-            id="1"
-            imageSrc="https://images.unsplash.com/photo-1620983566707-8f1e7c9b7d2c"
-            title="Villa de luxe"
-            locationValue="FR"
-            currentUser="1"
-          />
-        </div>
-        <div className="grid grid-cols-2 gap-6">
-          <div className="md:col-span-3">
-            <ListingInfo
-              /* user={listing.user}
-            category={listing.category}
-            description={listing.description}
-            roomCount={listing.roomCount}
-            guestCount={listing.guestCount}
-            bathroomCount={listing.bathroomCount}
-            locationValue={listing.location} */
-              category="plage"
-              description="hzgdjhgdjqhs"
-              roomCount="5"
-              guestCount="10"
-              bathroomCount="2"
-              //locationValue='TN'
+      <Container>
+        <div className="max-w-7xl mx-auto p-6 py-24 ">
+          <div className="mb-6">
+            <ListingHead
+              id={id}
+              imageSrc={listing.image_url}
+              title={listing.title}
+              locationValue={listing.country}
+              currentUser="1"
             />
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:col-span-3">
-            <div className="bg-white p-6 rounded-lg shadow-lg">
-              <Calendar
-                value={selectedRange}
-                onChange={handleDateChange}
-                disabledDates={disabledDates}
+          <div className="grid grid-cols-2 gap-6">
+            <div className="md:col-span-3">
+              <ListingInfo
+                user={listing.host}
+                category={listing.type}
+                description={listing.description}
+                roomCount={listing.rooms}
+                guestCount={listing.capacity}
+                bathroomCount={listing.bathrooms}
+                locationValue={listing.country}
               />
-              <button className="mt-4 w-full bg-red-500 text-white py-2 rounded-lg hover:bg-red-600">
-                Reserve
-              </button>
             </div>
-            <div className="bg-white p-6 rounded-lg shadow-lg">
-              {/* <Map center={listing.location.coordinates} /> */}
-              <Map center={coordinates} />
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:col-span-3">
+              <div className="bg-white p-6 rounded-lg shadow-lg">
+                <Calendar
+                  value={selectedRange}
+                  onChange={handleDateChange}
+                  disabledDates={disabledDates}
+                />
+                <button className="mt-4 w-full bg-red-500 text-white py-2 rounded-lg hover:bg-red-600">
+                  Reserver
+                </button>
+              </div>
+              <div className="bg-white p-6 rounded-lg shadow-lg">
+                <Map height={"full"} center={getByValue(listing.country)?.latlng} />
+              </div>
             </div>
           </div>
         </div>
-        </div>
-        </Container>
+      </Container>
     </Layout>
   );
 };

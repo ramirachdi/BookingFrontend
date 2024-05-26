@@ -1,5 +1,17 @@
 import axios from "axios";
 
+export const getListing = async (id, setListing) => {
+    axios.get(`http://localhost:3000/listings/${id}`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+
+    }).then(response => response.data)
+        .then(data => setListing(data))
+        .catch(err => console.log(err))
+}
+
 export const getListings = async (filters, setListings) => {
     axios.get(`http://localhost:3000/listings`, {
         method: 'GET',
