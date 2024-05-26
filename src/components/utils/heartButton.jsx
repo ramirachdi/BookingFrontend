@@ -8,7 +8,7 @@ function HeartButton({
     userFav
 }) {
 
-    const { hasFavorited, toggleFavorite } = useFavorite({
+    const { findListing, toggleFavorite } = useFavorite({
         listing,
         userFav
     });
@@ -24,7 +24,7 @@ function HeartButton({
             <AiFillHeart
                 size={25}
                 className={
-                    hasFavorited ?
+                    findListing ?
                         "fill-rose-500" :
                         "fill-neutral-500/70"}
             />

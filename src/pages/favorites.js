@@ -27,7 +27,7 @@ function FavoritesPage() {
     return (
         <>
             <Layout searchBar={false}>
-                <Favorites favorites={favlistings} />
+                <Favorites />
             </Layout>
         </>
     )

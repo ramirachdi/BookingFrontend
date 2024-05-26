@@ -8,6 +8,8 @@ import MenuItem from "./menuItem";
 import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
 import { getUser } from "../../../services/user";
+import Notifications from "./notification";
+
 
 
 
@@ -25,6 +27,7 @@ function UserMenu() {
     const toggleOpen = useCallback(() => {
         setIsOpen((value) => !value);
     }, []);
+
     useEffect(() => {
         getUser(cookie, setUser);
     }, [cookie])
@@ -59,6 +62,8 @@ function UserMenu() {
                         Airbnb your home
                     </div>
 
+                    {isLogged ? <Notifications /> : null
+                    }
 
                     <div
                         onClick={toggleOpen}
@@ -78,6 +83,10 @@ function UserMenu() {
                                 {isLogged ? (
                                     <>
                                         <MenuItem
+                                            onClick={() => navigate("/profile")}
+                                            label="My Profile"
+                                        />
+                                        <MenuItem
                                             onClick={() => navigate("/chat")}
                                             label="My messages"
                                         />
@@ -86,17 +95,13 @@ function UserMenu() {
                                             label="My favorites"
                                         />
                                         <MenuItem
-                                               onClick={() => navigate("/reservations")}
+                                            onClick={() => navigate("/reservations")}
                                             label="My reservations"
                                         />
                                         <MenuItem
                                             onClick={() => navigate("/properties")}
                                             label="My properties"
                                         />
-                                        {/* <MenuItem
-                                            //   onClick={() => rentModal.onOpen}
-                                            label="Airbnb my home"
-                                        /> */}
                                         <hr />
                                         <MenuItem
                                             onClick={() => logout()}

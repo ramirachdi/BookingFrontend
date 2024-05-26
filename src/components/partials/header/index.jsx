@@ -16,6 +16,7 @@ function Header({ searchBar }) {
                     <div className="flex flex-row items-center justify-between gap-3 md:gap-0">
                         <Logo h={100} w={100} />
                         {searchBar ? <Search /> : null}
+                        
                         <UserMenu />
                     </div>
                 </Container>
