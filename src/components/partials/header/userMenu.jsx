@@ -90,7 +90,7 @@ function UserMenu() {
                                             label="My favorites"
                                         />
                                         <MenuItem
-                                            //   onClick={() => router.push("/reservations")}
+                                               onClick={() => navigate("/reservations")}
                                             label="My reservations"
                                         />
                                         <MenuItem
