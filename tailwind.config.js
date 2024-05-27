@@ -17,7 +17,7 @@ module.exports = {
       colors: {
         primary: "#0096c7",
         secondary: "#f4f0f5",
-        violet: "#5e60ce",
+        violet: "#9800ff",
         qgreen: "#AFC8AD",
         beige: "#EEE7DA",
         qgray: "#F6F5F2"

@@ -10,9 +10,7 @@ import Logo from "../partials/header/logo";
 import ListingLogo from "../icons/listing";
 import ReservationLogo from "../icons/reservation";
 import ProfileLogo from "../icons/profile";
-import HelpLogo from "../icons/help";
 import LogoutLogo from "../icons/logout";
-import TripsLogo from "../icons/trips";
 import { useNavigate } from "react-router-dom";
 import FavouritesLogo from "../icons/favourites";
 import toast from "react-hot-toast";
@@ -198,7 +196,7 @@ function Chat() {
                         <Logo h={120} w={140} />
                     </div>
                     <div className="ml-4">
-                        <div className="text-lg font-normal italic">vacation is better with <span className="text-2xl font-serif text-violet tracking-tight">airbnb</span></div>
+                        <div className="text-lg font-normal italic">vacation is better with <span className="text-2xl font-serif text-violet tracking-tight">StayCation</span></div>
 
                     </div>
                 </div>
@@ -238,16 +236,6 @@ function Chat() {
                             </div>
                         </div>
                     </div>
-                    <div className="flex items-center py-4 border-b border-b-gray-300"
-                        onClick={() => navigate('/')}
-                    >
-                        <div className="cursor-pointer flex items-center">
-                            <div className="flex ml-4">
-                                <TripsLogo />
-                                <h3 className="ml-2 text-base font-medium">My Trips</h3>
-                            </div>
-                        </div>
-                    </div>
 
                     <div className="flex items-center py-4 border-b border-b-gray-300"
                         onClick={() => navigate('/favorites')}
@@ -260,16 +248,6 @@ function Chat() {
                         </div>
                     </div>
 
-                    <div className="flex items-center py-4 border-b border-b-gray-300"
-                        onClick={() => navigate('/')}
-                    >
-                        <div className="cursor-pointer flex items-center">
-                            <div className="flex ml-4">
-                                <HelpLogo />
-                                <h3 className="ml-2 text-base font-medium">Help</h3>
-                            </div>
-                        </div>
-                    </div>
                     <div className="flex items-center py-4 border-b border-b-gray-300"
                         onClick={logout}
                     >
