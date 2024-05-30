@@ -57,6 +57,8 @@ const Properties = ({
                         onAction={onCancel}
                         disabled={deletingId === item.id}
                         actionLabel="Delete Property"
+                        heart={false}
+
 
                     />
                 ))}

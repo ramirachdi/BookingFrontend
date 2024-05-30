@@ -23,7 +23,7 @@ function Home({ filters }) {
       <div className="grid grid-cols-1 gap-8 pt-24 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 mb-16">
         {listings.map((item) => (
           <div key={item.id}>
-            <ListingCard data={item} favorites={wishlist} />
+            <ListingCard data={item} favorites={wishlist} heart={true} />
           </div>
         ))}
       </div>

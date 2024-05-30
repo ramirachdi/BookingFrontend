@@ -8,16 +8,25 @@ import ListingHead from "../components/listing/listingHead";
 import Layout from "../components/partials/layout/index";
 import Container from "../components/utils/container";
 import { getListing } from "../services/listing";
+import { addReservation } from "../services/reservation";
+import { useCookies } from "react-cookie";
+import { useNavigate } from "react-router-dom";
+import { differenceInCalendarDays, eachDayOfInterval } from "date-fns";
+import { formatISO } from "date-fns";
 
 const InfoPage = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
+  const [cookies] = useCookies(['access-token']);
   const [listing, setListing] = useState(null);
-  const [bookings, setBookings] = useState([]);
+  const [totalPrice, setTotalPrice] = useState();
+  const [bookings] = useState([]);
   const [selectedRange, setSelectedRange] = useState({
     startDate: new Date(),
     endDate: new Date(),
     key: "selection",
   });
+
 
   const { getByValue } = useCountries();
 
@@ -34,8 +43,34 @@ const InfoPage = () => {
   }, []);
 
   const handleDateChange = (ranges) => {
-    setSelectedRange(ranges);
+    setSelectedRange(ranges.selection);
   };
+
+  useEffect(() => {
+    if (selectedRange.startDate && selectedRange.endDate) {
+      const dayCount = differenceInCalendarDays(
+        selectedRange.endDate,
+        selectedRange.startDate,
+      );
+
+      if (dayCount && listing.price) {
+        setTotalPrice(dayCount * listing.price);
+      } else {
+        setTotalPrice();
+      }
+    }
+  }, [selectedRange]);
+
+  const handleAddReservation = async () => {
+    const reservation = {
+      price: totalPrice,
+      startDate: formatISO(selectedRange.startDate),
+      endDate: formatISO(selectedRange.endDate),
+    };
+    console.log(reservation);
+    await addReservation(cookies, reservation, listing.id);
+    navigate("/reservations");
+  }
 
   useEffect(() => {
     getListing(id, setListing);
@@ -44,6 +79,7 @@ const InfoPage = () => {
   if (!listing) {
     return <div>Loading...</div>;
   }
+
 
   return (
     <Layout searchBar={false}>
@@ -75,14 +111,16 @@ const InfoPage = () => {
                 <Calendar
                   value={selectedRange}
                   onChange={handleDateChange}
-                  disabledDates={disabledDates}
+                disabledDates={disabledDates}
                 />
-                <button className="mt-4 w-full bg-red-500 text-white py-2 rounded-lg hover:bg-red-600">
+                <button
+                  onClick={handleAddReservation}
+                  className="mt-4 w-full bg-violet text-white py-2 rounded-lg hover:bg-white hover:text-violet hover:border-violet hover:border-[2px]">
                   Reserver
                 </button>
               </div>
               <div className="bg-white p-6 rounded-lg shadow-lg">
-                <Map height={"full"} center={getByValue(listing.country)?.latlng} />
+                <Map height={"h-full"} center={getByValue(listing.country)?.latlng} />
               </div>
             </div>
           </div>

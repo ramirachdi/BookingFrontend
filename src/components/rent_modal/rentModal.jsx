@@ -148,7 +148,7 @@ const RentModal = () => {
         />
         <Suspense fallback={<div>Loading...</div>} >
           {/* center={location?.latlng} */}
-          <Map height={"[35vh]"} center={location?.latlng} />
+          <Map height={`h-[35vh]`} center={location?.latlng} />
         </Suspense>
       </div>
     );

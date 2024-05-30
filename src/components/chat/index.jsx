@@ -206,7 +206,7 @@ function Chat() {
                 <div className="mx-14 mt-8">
 
                     <div className="flex items-center py-4 border-b border-b-gray-300"
-                        onClick={() => navigate('/')}
+                        onClick={() => navigate('/profile')}
                     >
                         <div className="cursor-pointer flex items-center">
                             <div className="flex ml-4">
@@ -217,7 +217,7 @@ function Chat() {
                     </div>
 
                     <div className="flex items-center py-4 border-b border-b-gray-300"
-                        onClick={() => navigate('/')}
+                        onClick={() => navigate('/properties')}
                     >
                         <div className="cursor-pointer flex items-center">
                             <div className="flex ml-4">
@@ -227,7 +227,7 @@ function Chat() {
                         </div>
                     </div>
                     <div className="flex items-center py-4 border-b border-b-gray-300"
-                        onClick={() => navigate('/')}
+                        onClick={() => navigate('/reservations')}
                     >
                         <div className="cursor-pointer flex items-center">
                             <div className="flex ml-4">

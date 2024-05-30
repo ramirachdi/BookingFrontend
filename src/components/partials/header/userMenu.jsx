@@ -59,7 +59,7 @@ function UserMenu() {
                     <div
                         onClick={onRent}
                         className="hidden px-4 py-3 text-sm font-semibold transition rounded-full cursor-pointer md:block hover:bg-neutral-100">
-                        Airbnb your home
+                        Rent your home
                     </div>
 
                     {isLogged ? <Notifications /> : null

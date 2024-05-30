@@ -12,7 +12,8 @@ function ListingCard({
     actionLabel,
     actionId = "",
     disabled,
-    favorites
+    favorites,
+    heart
 }) {
 
     const { getByValue } = useCountries();
@@ -44,10 +45,13 @@ function ListingCard({
                         alt="Listing"
                         className="object-cover w-full h-full transition group-hover:scale-110"
                     />
+                    {
+                        heart ? <div className="absolute top-3 right-3">
+                            <HeartButton listing={data} userFav={favorites} />
+                        </div> : null
+                    }
 
-                    <div className="absolute top-3 right-3">
-                        <HeartButton listing={data} userFav={favorites} />
-                    </div>
+
                 </div>
                 <div className="text-lg font-semibold">
                     {location?.region}, {location?.label}
