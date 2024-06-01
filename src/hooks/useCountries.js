@@ -1,4 +1,4 @@
-import countries from "world-countries";
+import countries  from '../libs/world-countries';
 
 const formattedCountries = countries.map((country) => ({
     value: country.cca2,
